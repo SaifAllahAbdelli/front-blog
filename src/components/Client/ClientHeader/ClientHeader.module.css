@@ -1,0 +1,13 @@
+.container {
+  background-color: #001219 !important;
+}
+
+.icon {
+  color: #fff;
+}
+
+.css-whxibi-MuiBadge-badge > span {
+  color: #fff;
+  font-weight: bold;
+  background-color: #ee9c31;
+}

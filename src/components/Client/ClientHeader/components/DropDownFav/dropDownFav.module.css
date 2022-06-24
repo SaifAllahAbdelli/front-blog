@@ -1,0 +1,6 @@
+.drop__down__menu {
+  max-height: 20rem;
+  width: 20rem;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,6 @@
+.candidat__name {
+  white-space: nowrap;
+  width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

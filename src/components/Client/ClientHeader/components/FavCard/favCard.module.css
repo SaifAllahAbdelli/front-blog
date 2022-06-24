@@ -1,0 +1,18 @@
+.icon {
+  text-align: center;
+  color: #fff;
+  padding: 0.2rem 1rem;
+  border-radius: 0.2rem;
+}
+
+.status {
+  background-color: #ee9b00;
+}
+
+.keyword__1 {
+  background-color: #e64a4f;
+}
+
+.keyword__2 {
+  background-color: #ec5610;
+}
