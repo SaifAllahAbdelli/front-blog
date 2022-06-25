@@ -7,7 +7,7 @@ import { FormGroup, FormText, Input } from "reactstrap";
 import {
   invalidForm,
   validateForm,
-} from "../../../redux/actions/client/postulerFormActions";
+} from "../../../redux/actions/form/postulerFormActions";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";

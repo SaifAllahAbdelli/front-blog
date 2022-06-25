@@ -9,7 +9,7 @@ import isEmail from "validator/lib/isEmail";
 import {
   invalidForm,
   validateForm,
-} from "../../../redux/actions/client/postulerFormActions";
+} from "../../../redux/actions/form/postulerFormActions";
 
 function ForgetPasswordFrom() {
   const [state, setState] = useState({

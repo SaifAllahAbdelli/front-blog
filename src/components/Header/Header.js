@@ -22,7 +22,6 @@ import MenuIcon from "../Icons/HeaderIcons/MenuIcon";
 import SearchIcon from "../Icons/HeaderIcons/SearchIcon";
 
 import UserDropDown from "./components/UserDropDown/UserDropDown";
-import NotificationDropDown from "./components/NotificationDropDown/NotificationDropDown";
 
 import s from "./Header.module.scss";
 import "animate.css";
@@ -75,7 +74,6 @@ const Header = (props) => {
         </div>
 
         <LangDropDown />
-        <NotificationDropDown />
         <UserDropDown />
       </Nav>
     </Navbar>

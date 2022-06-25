@@ -42,7 +42,7 @@ const Login = () => {
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const renderEye = isVisible ? < VisibilityOffIcon / > : < VisibilityIcon / > ;
+    const renderEye = isVisible ? < VisibilityOffIcon /> : < VisibilityIcon />;
 
     const toogleIsVisible = () => {
         setIsVisible((prevState) => !prevState);
@@ -59,6 +59,7 @@ const Login = () => {
     const doLogin = (e) => {
         e.preventDefault();
         dispatch(loginUser(state));
+        
 
         setEmailIsTouched(false);
         setPasswordIsTouched(false);
@@ -85,143 +86,141 @@ const Login = () => {
     }, [emailIsValid, state.password]);
 
     const changeCreds = (event) => {
-        setState({...state, [event.target.name]: event.target.value });
+        setState({ ...state, [event.target.name]: event.target.value });
     };
 
     if (hasToken(token)) {
-        return <Redirect to = "/admin" / > ;
+        return <Redirect to="/admin" />;
     }
 
-    return ( <
-        div className = "auth-page" >
+    return (<
+        div className="auth-page" >
         <
         Helmet >
-        <
-        meta charSet = "utf-8" / >
-        <
-        meta name = "description"
-        content = "Log-in page to authenticate users." / >
-        <
+            <
+                meta charSet="utf-8" />
+            <
+                meta name="description"
+                content="Log-in page to authenticate users." />
+            <
         title > Blog | Log - in < /title>{" "} < /
-        Helmet > { " " } <
-        Container className = "col-12" >
-        <
-        Row className = "d-flex align-items-center" >
-        <
-        Col xs = { 12 }
-        lg = { 6 }
-        className = "left-column" >
-        <
-        Widget className = "widget-auth widget-p-lg" >
-        <
-        div className = "d-flex align-items-center justify-content-between py-3" >
-        <
-        p className = "auth-header mb-0" > Se connecter < /p>{" "} <
-        div className = "logo-block" >
-        <
-        AdnLogo / >
-        <
+        Helmet > {" "} <
+        Container className="col-12" >
+                    <
+        Row className="d-flex align-items-center" >
+                        <
+        Col xs={12}
+                            lg={6}
+                            className="left-column" >
+                            <
+        Widget className="widget-auth widget-p-lg" >
+                                <
+        div className="d-flex align-items-center justify-content-between py-3" >
+                                    <
+        p className="auth-header mb-0" > Se connecter < /p>{" "} <
+        div className="logo-block" >
+                                            <
+                                                AdnLogo />
+                                            <
         /div>{" "} < /
-        div > { " " } <
-        form onSubmit = {
-            (event) => doLogin(event)
-        }
-        autoComplete = "off" >
-        <
-        FormGroup className = "my-3" >
-        <
+        div > {" "} <
+        form onSubmit={
+                                                    (event) => doLogin(event)
+                                                }
+                                                autoComplete="off" >
+                                                <
+        FormGroup className="my-3" >
+                                                    <
         FormText >
-        Address mail < strong className = "text-danger" > * < /strong>{" "} < /
-        FormText > { " " } <
-        Input id = "email"
-        className = { `input-transparent pl-3 ${
-                      !emailIsValid && emailIsTouched && "is-invalid"
-                    }` }
-        value = { state.email }
-        onChange = {
-            (event) => changeCreds(event)
-        }
-        onFocus = {
-            () => setEmailIsTouched(true)
-        }
-        type = "email"
-        name = "email"
-        placeholder = "E-mail"
-        required /
-        >
-        <
-        div className = "invalid-feedback" >
-        Veuillez fournir une adresse mail valide { " " } <
+                                                        Address mail < strong className="text-danger" > * < /strong>{" "} < /
+        FormText > {" "} <
+                                                                Input id="email"
+                                                                className={`input-transparent pl-3 ${!emailIsValid && emailIsTouched && "is-invalid"
+                                                                    }`}
+                                                                value={state.email}
+                                                                onChange={
+                                                                    (event) => changeCreds(event)
+                                                                }
+                                                                onFocus={
+                                                                    () => setEmailIsTouched(true)
+                                                                }
+                                                                type="email"
+                                                                name="email"
+                                                                placeholder="E-mail"
+                                                                required /
+                                                            >
+                                                            <
+        div className="invalid-feedback" >
+                                                                Veuillez fournir une adresse mail valide {" "} <
         /div>{" "} < /
-        FormGroup > { " " } <
-        FormGroup className = "my-3" >
-        <
-        div className = "d-flex justify-content-between" >
-        <
+        FormGroup > {" "} <
+        FormGroup className="my-3" >
+                                                                    <
+        div className="d-flex justify-content-between" >
+                                                                        <
         FormText >
-        Mot de passe < strong className = "text-danger" > * < /strong>{" "} < /
-        FormText > { " " } <
-        Link to = "/forgetpassword" > Mot de passe oublié ? < /Link>{" "} < /
-        div > { " " } <
-        div className = "d-flex justify-content-between" >
-        <
-        Input id = "password"
-        className = { `input-transparent pl-3 ${
-                        state.password.length < 8 &&
-                        passwordIsTouched &&
-                        "is-invalid"
-                      }` }
-        value = { state.password }
-        onChange = {
-            (event) => changeCreds(event)
-        }
-        onFocus = {
-            () => setPasswordIsTouched(true)
-        }
-        type = { isVisible ? "text" : "password" }
-        required name = "password"
-        placeholder = "Mot de passe" /
-        >
-        <
-        IconButton onClick = { toogleIsVisible } > { " " } { renderEye } { " " } <
+                                                                            Mot de passe < strong className="text-danger" > * < /strong>{" "} < /
+        FormText > {" "} <
+        Link to="/forgetpassword" > Mot de passe oublié ? < /Link>{" "} < /
+        div > {" "} <
+        div className="d-flex justify-content-between" >
+                                                                                        <
+                                                                                            Input id="password"
+                                                                                            className={`input-transparent pl-3 ${state.password.length < 8 &&
+                                                                                                passwordIsTouched &&
+                                                                                                "is-invalid"
+                                                                                                }`}
+                                                                                            value={state.password}
+                                                                                            onChange={
+                                                                                                (event) => changeCreds(event)
+                                                                                            }
+                                                                                            onFocus={
+                                                                                                () => setPasswordIsTouched(true)
+                                                                                            }
+                                                                                            type={isVisible ? "text" : "password"}
+                                                                                            required name="password"
+                                                                                            placeholder="Mot de passe" /
+                                                                                        >
+                                                                                        <
+        IconButton onClick={toogleIsVisible} > {" "} {renderEye} {" "} <
         /IconButton>{" "} < /
-        div > { " " } <
-        div className = "invalid-feedback" >
-        Veuillez fournir un mot de passe valide avec 8 caractéres ou +
-        <
+        div > {" "} <
+        div className="invalid-feedback" >
+                                                                                                Veuillez fournir un mot de passe valide avec 8 caractéres ou +
+                                                                                                <
         /div>{" "} < /
-        FormGroup > { " " } <
-        div className = "bg-widget d-flex justify-content-center" > { " " } {
-            loading ? ( <
-                SpinnerSmall / >
-            ) : ( <
-                Button className = "rounded-pill my-3"
-                type = "submit"
-                disabled = {!formIsValid }
-                color = "secondary-red" >
-                Se connecter { " " } <
+        FormGroup > {" "} <
+        div className="bg-widget d-flex justify-content-center" > {" "} {
+                                                                                                        loading ? (<
+                                                                                                            SpinnerSmall />
+                                                                                                        ) : (<
+                Button className="rounded-pill my-3"
+                                                                                                            type="submit"
+                                                                                                            disabled={!formIsValid}
+                                                                                                            color="secondary-red" >
+                                                                                                            Se connecter {" "} <
                 /Button>
-            )
-        } { " " } <
+                                                                                                            )
+        } {" "} <
         /div>{" "} < /
-        form > { " " } <
+        form > {" "} <
         /Widget>{" "} < /
-        Col > { " " } <
-        Col xs = { 0 }
-        lg = { 6 }
-        className = "right-column" >
-        <
+        Col > {" "} <
+        Col xs={0}
+                                                                                                                lg={6}
+                                                                                                                className="right-column" >
+                                                                                                                <
         div >
-        <
-        img src = { loginImage }
-        alt = "Logo" / >
-        <
+                                                                                                                    <
+                                                                                                                        img src={loginImage}
+                                                                                                                        alt="Logo" />
+                                                                                                                    <
         /div>{" "} < /
-        Col > { " " } <
+        Col > {" "} <
         /Row>{" "} < /
-        Container > { " " } <
+        Container > {" "} <
         /div>
-    );
+                                                                                                                    );
 };
 
-export default withRouter(Login);
+                                                                                                                    export default withRouter(Login);

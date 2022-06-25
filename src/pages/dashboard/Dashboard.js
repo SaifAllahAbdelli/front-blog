@@ -12,13 +12,7 @@ import DonutChartOffers from "./components/DonutChartOffers";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const {
-    totalOffersByName,
-    totalInternshipCandidatsByMonth,
-    totalJobsCandidatsByMonth,
-    totalInternshipGenderCandidatsByMonth,
-    totalJobsGenderCandidatsByMonth,
-  } = useSelector((state) => state.stats);
+
 
   return (
     <Row>
@@ -32,34 +26,8 @@ const Dashboard = () => {
       </Helmet>
 
       <Col className="pr-grid-col" xs={12} lg={12}>
-        <Row className="gutter mb-4">
-          <BarChart
-            title="Candidatures par mois"
-            data={[totalInternshipCandidatsByMonth, totalJobsCandidatsByMonth]}
-            colors={["#023047", "#ffb703"]}
-          />
 
-          <ApexColumnAreaChart
-            title="Sexes par mois"
-            data={[
-              totalInternshipGenderCandidatsByMonth,
-              totalJobsGenderCandidatsByMonth,
-            ]}
-          />
-        </Row>
-
-        <Row className="gutter mb-4">
-          <RechartsPieChart
-            title="N° total des candidatures"
-            labels={["PFE", "Jobs"]}
-            colors={["#83c5be", "#e29578"]}
-          />
-
-          <DonutChartOffers
-            title="N° candidatures par offre"
-            series={totalOffersByName}
-          />
-        </Row>
+       
       </Col>
     </Row>
   );

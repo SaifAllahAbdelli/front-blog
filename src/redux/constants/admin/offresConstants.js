@@ -5,9 +5,9 @@ export const DELETE_OFFRE = "DELETE_OFFRE";
 export const INCREMENT_CANDIDATS = "INCREMENT_CANDIDATS";
 /*posts*/
 export const GET_POST = "get_post";
-export const CREATE_POST = "create_post";
-export const DELETE_POST = "delete_post";
+export const CREATE_POST = "delete_post";
 export const UPDATE_POST = "update_post";
+export const DELETE_POST = "delete_poste";
 export const SET_CURRENT_POST = "SET_CURRENT_post";
 /*utilisateurs */
 export const GET_USERS = "GET_USERS";

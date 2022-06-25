@@ -1,6 +1,7 @@
 // -- React and related libs
 import React, { Suspense, lazy, useEffect } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router";
+import { Buffer } from "buffer";
 
 // -- Component Styles
 import s from "./Layout.module.scss";
@@ -10,56 +11,27 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setLoading, unsetLoading } from "../../redux/actions/loadingActions";
 
-// import { getCandidatures } from "../../redux/actions/admin/candidaturesActions";
-// import { getAppointments } from "../../redux/actions/admin/appointmentsActions";
-// import { getNotification } from "../../redux/actions/admin/notificationActions";
-
-// import {
-//   getToalOffersByName,
-//   getTotalInternshipCandidatsByDay,
-//   getTotalInternshipCandidatsCount,
-//   getTotalInternshipGenderCandidatsByDay,
-//   getTotalJobsCandidatsByDay,
-//   getTotalJobsCandidatsCount,
-//   getTotalJobsGenderCandidatsByDay,
-// } from "../../redux/actions/stats/statsActions";
 
 // Lazy loading components
 const Header = lazy(() => import("../Header/Header"));
 const Sidebar = lazy(() => import("../Sidebar/Sidebar"));
+
 const Dashboard = lazy(() => import("../../pages/dashboard/Dashboard"));
 
 
-const User = lazy(() => import("../../pages/users/Usrers"));
+const User = lazy(() => import("../../pages/users/Users"));
 
-const Postes = lazy(() => import("../../pages/offres/OffresJobs"));
+const Postes = lazy(() => import("../../pages/postes/Postes"));
 const Layout = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
+  var role = JSON.parse(Buffer.from(token?.split('.')[1], 'base64').toString());
 
   useEffect(() => {
     dispatch(setLoading());
-
-    // if (token) {
-    //   dispatch(getCandidatures());
-    //   dispatch(getAppointments());
-    //   dispatch(getNotification());
-
-    //   // Stats
-    //   dispatch(getToalOffersByName());
-
-    //   dispatch(getTotalInternshipCandidatsByDay("2022"));
-    //   dispatch(getTotalJobsCandidatsByDay("2022"));
-
-    //   dispatch(getTotalInternshipCandidatsCount());
-    //   dispatch(getTotalJobsCandidatsCount());
-
-    //   dispatch(getTotalInternshipGenderCandidatsByDay("2022"));
-    //   dispatch(getTotalJobsGenderCandidatsByDay("2022"));
-    // }
-
     dispatch(unsetLoading());
   }, [dispatch, token]);
+
 
   return (
     <div className={s.root}>
@@ -83,17 +55,20 @@ const Layout = () => {
                 exact
                 render={() => <Redirect to={"/admin/postes"} />}
               />
-              <Route path="/admin/postes" exact component={Postes } />
-             
-                {/* Gestion des users */}
-                <Route
-                path="/admin/utlisateurs"
-                exact
-                render={() => <Redirect to={"/admin/users"} />}
-              />
-              <Route path="/admin/users"exact component={User} />
-              
+              <Route path="/admin/postes" exact component={Postes} />
 
+              {/* Gestion des users */}
+              {role.roleId == 1 && (
+                <>
+                  <Route
+                    path="/admin/utilisateur"
+                    exact
+                    render={() => <Redirect to={"/admin/users"} />}
+                  />
+                  <Route path="/admin/users" exact component={User} />
+                </>
+              )
+              }
             </Switch>
           </main>
         </Suspense>

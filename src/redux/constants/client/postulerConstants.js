@@ -1,2 +1,0 @@
-export const CHOOSE_OFFER = "CHOOSE_OFFER";
-export const SUBMIT_USER_INFOS = "SUBMIT_USER_INFOS";

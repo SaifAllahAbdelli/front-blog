@@ -8,7 +8,7 @@ const authenticated = localStorage.getItem("authenticated");
 const token = localStorage.getItem("token");
 
 const INITIAL_STATE = {
-    token: "ffffff",
+    token,
     isFetching: false,
     isAuthenticated: authenticated,
 };

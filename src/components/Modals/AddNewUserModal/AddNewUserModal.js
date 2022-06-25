@@ -14,7 +14,7 @@ import {
 
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../../redux/actions/admin/usersActions";
+import { adduser } from "../../../redux/actions/admin/usersActions";
 
 // import { v4 as uuidv4 } from "uuid";
 
@@ -34,14 +34,10 @@ function AddNewUserModal({ isOpen, toggleShowModal, pfe }) {
 
   // Global input state
   const [state, setState] = useState({
-    id: offres.length + 1,
-    Nom: "",
-    FirstName: "",
-    LastName: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    role: "",
-    addedDate: date,
-    lastModified: date,
+    roleId: "",
   });
 
   // Input states if touched
@@ -52,7 +48,7 @@ function AddNewUserModal({ isOpen, toggleShowModal, pfe }) {
 
   // Overall form validation
   useEffect(() => {
-    if (state.LastName && state.FirstName && state.email && state.role) {
+    if (state.lastName && state.firstName && state.email && state.role) {
       setFormIsValid(true);
     } else {
       setFormIsValid(false);
@@ -64,18 +60,14 @@ function AddNewUserModal({ isOpen, toggleShowModal, pfe }) {
   };
 
   const handleSubmit = () => {
-    dispatch(addUser(state));
+    dispatch(adduser({ ...state, roleId: Number(state.roleId) }));
 
     // Reintialize state
     setState({
-      id: 0,
-      Nom: "",
-      FirstName: "",
-      LastName: "",
+      firstName: "",
+      lastName: "",
       email: "",
-      role: "",
-      addedDate: date,
-      lastModified: date,
+      roleId: "",
     });
 
     // Reintialize is touched
@@ -109,7 +101,7 @@ function AddNewUserModal({ isOpen, toggleShowModal, pfe }) {
             </Label>
             <Input
               id="FirstName"
-              name="FirstName"
+              name="firstName"
               placeholder="FirstName"
               type="text"
               required
@@ -130,7 +122,7 @@ function AddNewUserModal({ isOpen, toggleShowModal, pfe }) {
             </Label>
             <Input
               id="LastName"
-              name="LastName"
+              name="lastName"
               placeholder="LastName"
               type="text"
               required
@@ -170,15 +162,24 @@ function AddNewUserModal({ isOpen, toggleShowModal, pfe }) {
             </Label>
             <Input
               id="role"
-              name="role"
-              type="textarea"
+              name="roleId"
+              type="select"
+              catregory
               placeholder="role"
               required
               value={state.role}
               onChange={(event) => changeCreds(event)}
               onFocus={() => setRoleIsTouched(true)}
               className={!state.role && roleIsTouched ? "is-invalid" : ""}
-            />
+            >
+              <option value="1">
+                ADMIN
+              </option>
+              <option value="2">
+                DEVELOPPEUR
+              </option>
+            </Input>
+
             <div className="invalid-feedback">Ce champ est requis!</div>
           </FormGroup>
         </Form>
@@ -189,7 +190,7 @@ function AddNewUserModal({ isOpen, toggleShowModal, pfe }) {
           Annuler
         </Button>
 
-        <Button color="success" onClick={handleSubmit} disabled={!formIsValid}>
+        <Button color="success" onClick={handleSubmit} >
           Ajouter
         </Button>
       </ModalFooter>

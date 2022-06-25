@@ -8,7 +8,7 @@ import {
 
 import posts from "../../db/posts";
 
-const INITIAL_STATE = [...posts];
+const INITIAL_STATE = [];
 
 const offres = (state = INITIAL_STATE, action) => {
   switch (action.type) {

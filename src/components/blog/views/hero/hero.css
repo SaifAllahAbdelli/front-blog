@@ -1,0 +1,15 @@
+h1 {
+    font-family: 'Roboto Bold';
+    font-size: 80px;
+    color: #333D4c;
+    margin-left: 20%;
+
+}
+
+p {
+    font-family: 'Roboto Regular';
+    font-size: 22px;
+    color: #333D4c;
+    margin-left: 20%;
+    margin-right: 20%;
+}

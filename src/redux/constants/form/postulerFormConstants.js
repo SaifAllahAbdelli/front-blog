@@ -1,0 +1,2 @@
+export const VALIDATE_FORM = "VALIDATE_FORM";
+export const INVALIDATE_FORM = "INVALIDATE_FORM";

@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 
 import { useDispatch, useSelector } from "react-redux";
-import { modifyUser } from "../../../redux/actions/admin/usersActions";
+import { modifyuser } from "../../../redux/actions/admin/usersActions";
 
 function ModifyUserModal({ isOpen, toggleShowModal, user, userID }) {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function ModifyUserModal({ isOpen, toggleShowModal, user, userID }) {
   const { id } = oneUser;
 
   const handleSubmit = () => {
-    dispatch(modifyUser(state));
+    dispatch(modifyuser(state));
 
     toggleShowModal();
   };

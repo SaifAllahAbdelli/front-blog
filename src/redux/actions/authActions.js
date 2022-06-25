@@ -6,10 +6,18 @@ import axios from "../../utils/axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notification from "../../components/Notification/Notification";
+import { SET_CURRENT_USER } from "../../actionType/actions";
 
 export function receiveLogin(payload) {
   return {
     type: LOGIN_SUCCESS,
+    payload,
+  };
+}
+
+export function currentUser(payload) {
+  return {
+    type: SET_CURRENT_USER,
     payload,
   };
 }
@@ -27,19 +35,23 @@ export const logoutUser = () => async (dispatch) => {
   dispatch(receiveLogout());
 };
 
+
+
 export const loginUser = (data) => async (dispatch) => {
   dispatch(setLoading());
 
   try {
-    const response = await axios.post("/auth/login", data);
+    const response = await axios.post("/api/users/signIn", data);
 
-    const { token } = response.data;
+    const { accessToken } = response.data;
 
     localStorage.setItem("authenticated", true);
-    localStorage.setItem("token", token);
+    localStorage.setItem("token", accessToken);
 
-    data.token = token;
+    data.token = accessToken;
     dispatch(receiveLogin(data));
+    dispatch(currentUser(data));
+
   } catch (error) {
     console.log(error.response.data.message);
 

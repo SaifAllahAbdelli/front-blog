@@ -1,10 +1,11 @@
 import {
-  GET_USERS,
+  GET_USER,
+  CREATE_USER,
   DELETE_USER,
-  ADD_USER,
-  MODIFY_USER,
-  INCREMENT_CANDIDATS,
-} from "../../constants/admin/offresConstants";
+  UPDATE_USER,
+  SET_CURRENT_USER,
+} from "../../../actionType/actions";
+import axios from "../../../utils/axios";
 
 import { setLoading, unsetLoading } from "../loadingActions";
 
@@ -14,94 +15,59 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notification from "../../../components/Notification/Notification";
 
-export const getUsers = () => async (dispatch) => {
-  try {
+export const getusers = () => async (dispatch) => {
+  dispatch(setLoading());
+  const response = await axios.get("/api/users/Admin/all-users");
+  if (response.status === 200 || 201) {
     dispatch({
-      type: GET_USERS,
-    });
-  } catch (error) {
+      type: GET_USER,
+      payload: response.data,
+    })
+  } else {
     toast(
       <Notification
         type="error"
         withIcon
-        message={error.response.data.message}
       />
     );
   }
+  dispatch(unsetLoading());
+
 };
 
-export const addUser = (payload) => async (dispatch) => {
+export const adduser = (payload) => async (dispatch) => {
   dispatch(setLoading());
-
-  try {
+  const response = await axios.post("/api/users/Admin", payload);
+  if (response.status === 200 || 201) {
     dispatch({
-      type: ADD_USER,
-      payload: payload,
+      type: CREATE_USER,
+      payload: response.data,
     });
-
     toast(
       <Notification
         type="success"
         withIcon
-        message={`${payload.firstName} a été ajouté`}
+        message={`${payload.title} a été ajouté`}
       />
     );
-  } catch (error) {
+  } else {
     toast(
       <Notification
         type="error"
         withIcon
-        message={error.response.data.message}
       />
     );
-  } finally {
-    dispatch(unsetLoading());
   }
-};
+  dispatch(unsetLoading());
 
-export const deleteUser = (payload) => async (dispatch) => {
+}
+
+export const deleteuser = (payload) => async (dispatch) => {
   dispatch(setLoading());
-
-  console.log()
-
-  const { userID } = payload;
-
-  try {
+  const response = await axios.delete("/api/users/Admin/" + payload);
+  if (response.status === 200 || 201) {
     dispatch({
       type: DELETE_USER,
-      payload: userID,
-    });
-
-    toast(
-      <Notification type="success" withIcon message="L'utilisateura été supprimé" />
-    );
-  } catch (error) {
-    toast(
-      <Notification
-        type="error"
-        withIcon
-        message={error.response.data.message}
-      />
-    );
-  } finally {
-    dispatch(unsetLoading());
-  }
-};
-
-export const modifyUser = (payload) => async (dispatch) => {
-  dispatch(setLoading());
-
-  
-
-  console.log("payload", payload)
-
-  // Transforming data to integers
-  // state.experienceYears = parseInt(state.experienceYears);
-  // state.salary = parseInt(state.salary);
-
-  try {
-    dispatch({
-      type: MODIFY_USER,
       payload,
     });
 
@@ -109,42 +75,45 @@ export const modifyUser = (payload) => async (dispatch) => {
       <Notification
         type="success"
         withIcon
-        message={`${payload.lasttName} a été modifié`}
       />
     );
-  } catch (error) {
-    console.log(error)
+  } else {
     toast(
       <Notification
         type="error"
         withIcon
-        message={error}
       />
     );
-  } finally {
-    dispatch(unsetLoading());
   }
+  dispatch(unsetLoading());
 };
 
-export const incrementCandidats = (payload) => async (dispatch) => {
+export const modifyuser = (payload) => async (dispatch) => {
   dispatch(setLoading());
-
-  const { offerID } = payload;
-
-  try {
+  const response = await axios.put("/api/posts/" + payload.id, payload);
+  if (response.status === 200 || 201) {
     dispatch({
-      type: INCREMENT_CANDIDATS,
-      payload: offerID,
+      type: UPDATE_USER,
+      payload:response.data,
     });
-  } catch (error) {
+
+    toast(
+      <Notification
+        type="success"
+        withIcon
+        message={`${payload.title} a été modifié`}
+      />
+    );
+  } else {
     toast(
       <Notification
         type="error"
         withIcon
-        message={error.response.data.message}
       />
     );
-  } finally {
-    dispatch(unsetLoading());
   }
+  dispatch(unsetLoading());
+
 };
+
+

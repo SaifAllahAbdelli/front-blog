@@ -33,16 +33,12 @@ const users = (state = INITIAL_STATE, action) => {
 
       return [...newState];
 
-    case INCREMENT_CANDIDATS:
-      const indexuser = state.findIndex(
-        (offer) => offer.id === action.payload
-      );
-      state[indexuser].totalCandidats += 1;
-      return [...state];
-
     default:
       return state;
   }
 };
 
 export default users;
+
+
+

@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 // -- Redux
 import { useDispatch, useSelector } from "react-redux";
+import axios from "./utils/axios";
 
 // -- Custom Components
 import LayoutComponent from "./components/Layout/Layout";
@@ -24,16 +25,22 @@ import isAuthenticated from "./services/authService";
 
 // -- Component Styles
 import "./styles/app.scss";
-import PostulerJob from "./pages/postuler/Postuler-job/PostulerJob";
-import PostulerPFE from "./pages/postuler/Postuler-PFE/PostulerPFE";
-// import { getOffers } from "./redux/actions/admin/offresActions";
+
 import { setLoading, unsetLoading } from "./redux/actions/loadingActions";
+import HomeBlog from "./pages/home/Home";
+import SinglePost from "./pages/singlepost/SinglePost";
+import { SET_CURRENT_USER } from "./actionType/actions";
 
 const App = () => {
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.auth.token);
-
+  const getMe = async () => {
+    const response = await axios.get("/api/users/getMe");
+    if (response.status === 200) {
+      dispatch({ type: SET_CURRENT_USER, payload: response.data })
+    };
+  }
   const PrivateRoute = ({ dispatch, component, ...rest }) => {
     if (!isAuthenticated(token)) {
       dispatch(logoutUser());
@@ -50,9 +57,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(setLoading());
-
-    // dispatch(getOffers());
-
+    getMe()
     dispatch(unsetLoading());
   }, [dispatch]);
 
@@ -67,9 +72,12 @@ const App = () => {
       />
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact render={() => <Redirect to="/job-offres" />} />
-          <Route path="/job-offres" exact component={PostulerJob} />
-          <Route path="/pfe-offres" exact component={PostulerPFE} />
+
+          {/* Blog page */}
+
+          <Route exact path="/single-post" component={() => <SinglePost />} />
+
+          <Route exact path="/" component={() => <HomeBlog />} />
 
           {/* Login page */}
           <Route path="/login" exact component={Login} />

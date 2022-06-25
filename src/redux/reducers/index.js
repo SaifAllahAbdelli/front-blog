@@ -8,30 +8,23 @@ import auth from "./auth/authReducer";
 // Admin's reducers
 import postes from "./admin/offresReducer";
 import users from "./admin/usersReducer";
-import candidatures from "./admin/candidaturesReducer";
-import appointments from "./admin/appointmentsReducer";
 import notifications from "./admin/notifictionsReducer";
-import stats from "./stats/statsReducer";
+import updateUsers from "./updateUsers";
+import posts from "./posts";
+
 
 // Client's reducers
-import validateForm from "./client/postulerFormReducer";
-import postuler from "./client/postulerReducer";
-import search from "./client/searchReducer";
 
 import loading from "./ui/loadingReducer";
 
 export default combineReducers({
   register,
   auth,
-  appointments,
   navigation,
   postes,
-  validateForm,
+  posts,
   loading,
-  candidatures,
-  postuler,
+  updateUsers,
   notifications,
-  stats,
-  search,
   users,
 });

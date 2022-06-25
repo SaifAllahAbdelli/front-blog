@@ -6,10 +6,12 @@ import LinksGroup from "./LinksGroup/LinksGroup.js";
 import { changeActiveSidebarItem } from "../../redux/actions/navigationActions";
 import cn from "classnames";
 import AdnLogo from "../Icons/AdnLogo";
+import { Buffer } from "buffer";
 
 const Sidebar = (props) => {
   const [burgerSidebarOpen, setBurgerSidebarOpen] = useState(false);
-
+  const { token } = useSelector((state) => state.auth);
+  var role = JSON.parse(Buffer.from(token?.split('.')[1], 'base64').toString());
   // Redux Hooks
   const dispatch = useDispatch();
 
@@ -29,7 +31,7 @@ const Sidebar = (props) => {
 
   return (
     <nav className={cn(s.root, { [s.sidebarOpen]: burgerSidebarOpen })}>
-      <Link className={s.logo} to="/admin">
+      <Link className={s.logo} to="/">
         <AdnLogo />
       </Link>
 
@@ -63,7 +65,7 @@ const Sidebar = (props) => {
             },
           ]}
         /> */}
-          <LinksGroup
+        <LinksGroup
           onActiveSidebarItemChange={(activeItem) =>
             dispatch(changeActiveSidebarItem(activeItem))
           }
@@ -80,26 +82,30 @@ const Sidebar = (props) => {
             },
           ]}
         />
-
-        <LinksGroup
-          onActiveSidebarItemChange={(activeItem) =>
-            dispatch(changeActiveSidebarItem(activeItem))
-          }
-          activeItem={activeItem}
-          header="Gestion des utilisateurs"
-          isHeader
-          iconName={<i className={"eva eva-code"} />}
-          link="/admin/users/all"
-          index="users"
-          childrenLinks={[
-            {
-              header: "utilisateurs",
-              link: "/admin/users",
-            },
-          ]}
-        />
+        {role.roleId == 1 && (
+          <>
+            <LinksGroup
+              onActiveSidebarItemChange={(activeItem) =>
+                dispatch(changeActiveSidebarItem(activeItem))
+              }
+              activeItem={activeItem}
+              header="Gestion des utilisateurs"
+              isHeader
+              iconName={<i className={"eva eva-code"} />}
+              link="/admin/users/all"
+              index="users"
+              childrenLinks={[
+                {
+                  header: "utilisateurs",
+                  link: "/admin/users",
+                },
+              ]}
+            />
+          </>
+        )
+        }
       </ul>
-    </nav>
+    </nav >
   );
 };
 

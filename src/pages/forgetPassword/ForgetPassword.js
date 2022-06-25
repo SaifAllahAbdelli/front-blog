@@ -12,7 +12,7 @@ import ForgetPasswordFrom from "../../components/ForgetPasswordBody/ForgetPasswo
 import NewPasswordConfirmation from "../../components/ForgetPasswordBody/NewPasswordConfirmation/NewPasswordConfirmation";
 
 import { useDispatch, useSelector } from "react-redux";
-import { invalidForm } from "../../redux/actions/client/postulerFormActions";
+import { invalidForm } from "../../redux/actions/form/postulerFormActions";
 
 import { Helmet } from "react-helmet";
 

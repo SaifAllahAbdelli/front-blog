@@ -6,9 +6,10 @@ import React, { useState } from "react";
 //import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import BookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+
 
 import mariaImage from "../../../../assets/navbarMenus/mariaImage.jpg";
+import { Buffer } from "buffer";
 
 import logoutIcon from "../../../../assets/navbarMenus/pfofileIcons/logoutOutlined.svg";
 
@@ -23,16 +24,26 @@ import { logoutUser } from "../../../../redux/actions/authActions";
 
 import s from "../../Header.module.scss";
 import "animate.css";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ModifyProfilModal from "../../../Modals/ModifyProfile/ModifyProfile";
 
 function UserDropDown() {
   const dispatch = useDispatch();
 
+const token = useSelector((state) => state.auth.token);
+
+const {currentusers} = useSelector((state) => state.updateUsers);
+
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modifuser, setModifuser] = useState(false);
+
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const toggleShowModal = () => {
+    setModifuser(!modifuser);
   };
 
   const doLogout = () => {
@@ -40,6 +51,7 @@ function UserDropDown() {
   };
 
   return (
+    <>
     <Dropdown
       isOpen={menuOpen}
       toggle={toggleMenu}
@@ -72,12 +84,11 @@ function UserDropDown() {
           <span>Messages</span>
         </DropdownItem> */}
 
-        <Link to="/job-offres" className="d-flex align-items-center">
           <DropdownItem className={s.dropdownProfileItem}>
             <WorkOutlineIcon style={{ color: "#16365f"  }} />
-            <span style={{ fontSize:"13px" }} >modifier profile</span>
+            <span style={{ fontSize:"13px" }}  onClick={()=>toggleShowModal()}>modifier profile</span>
           </DropdownItem>
-        </Link>
+      
 
         {/* <Link to="/pfe-offres" className="d-flex align-items-center">
           <DropdownItem className={s.dropdownProfileItem}>
@@ -98,6 +109,10 @@ function UserDropDown() {
         </div>
       </DropdownMenu>
     </Dropdown>
+    <ModifyProfilModal isOpen={modifuser} toggleShowModal={toggleShowModal} info={currentusers}/>
+    </>
+
+
   );
 }
 

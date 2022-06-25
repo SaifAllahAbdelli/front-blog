@@ -16,12 +16,13 @@ import ConfirmDeleteUser from "../../../components/Modals/ConfirmModal/ConfirmDe
 let rowID;
 
 const formatDate = (input) => {
- const date = new Date(input);
+  const date = new Date(input);
   return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join("/");
 };
 
-function UsersTable({ title, rows }) {
+function UsersTable({ title }) {
   const loading = useSelector((state) => state.loading);
+  const { users } = useSelector((state) => state.updateUsers);
 
   const columns = [
     {
@@ -32,14 +33,14 @@ function UsersTable({ title, rows }) {
       headerAlign: "center",
     },
     {
-      field: "FirstName",
+      field: "firstName",
       headerName: "Nom",
       minWidth: 170,
       flex: 1,
       headerAlign: "center",
     },
     {
-      field: "LastName",
+      field: "lastName",
       headerName: "Prénom",
       minWidth: 170,
       flex: 1,
@@ -53,36 +54,14 @@ function UsersTable({ title, rows }) {
       headerAlign: "center",
     },
     {
-      field: "role",
+      field: "roleId",
       headerName: "Role",
       minWidth: 150,
       flex: 1,
       type: "number",
       headerAlign: "center",
-    },
-    {
-      field: "addedDate",
-      headerName: "Date d'ajout",
-      minWidth: 125,
-      flex: 1,
-      type: "date",
-      headerAlign: "center",
-      valueFormatter: (params) => {
-        return formatDate(params.value);
-      },
-    },
-    {
-      field: "lastModified",
-      headerName: "Dernière modification",
-      minWidth: 125,
-      flex: 1,
-      type: "date",
-      headerAlign: "center",
-      valueFormatter: (params) => {
-        return formatDate(params.value);
-      },
-    },
-
+    }
+    ,
     {
       field: "options",
       headerName: "Options",
@@ -94,13 +73,6 @@ function UsersTable({ title, rows }) {
         } else {
           return (
             <div className="d-flex align-items-center justify-content-center w-50">
-              <button
-                onClick={toggleShowModifyOfferModal}
-                className="btn w-25 d-flex justify-content-center align-items-center btn-outline-warning"
-              >
-                <i className="fa-solid fa-pen"></i>
-              </button>
-
               <button
                 onClick={toggleShowConfirmeModal}
                 className="btn d-flex justify-content-center align-items-center   btn-outline-danger w-25"
@@ -150,7 +122,7 @@ function UsersTable({ title, rows }) {
             }}
           >
             <DataGrid
-              rows={rows}
+              rows={users}
               columns={columns}
               pageSize={5}
               rowsPerPageOptions={[5]}
@@ -179,16 +151,7 @@ function UsersTable({ title, rows }) {
         <AddNewUserModal
           isOpen={addOfferModalIsOpen}
           toggleShowModal={toggleShowAddOfferModal}
-         
-        />
-      )}
 
-      {modifyOfferModalIsOpen && (
-        <ModifyUserModal
-          isOpen={modifyOfferModalIsOpen}
-          toggleShowModal={toggleShowModifyOfferModal}
-          
-          userID ={rowID}
         />
       )}
     </Widget>
